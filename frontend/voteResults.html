@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting System</title>
+    <style>
+        #candidatesSection {
+            margin-bottom: 20px;
+        }
+
+        #votingResultsSection {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+
+        #votingResultsSection h2 {
+            font-size: 24px;
+        }
+
+        #votingResultsList li {
+            font-size: 18px;
+            padding: 5px 0;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voting System</h1>
+
+    <!-- Button to connect wallet -->
+    <button id="connectWallet">Connect Wallet</button>
+
+    <!-- Displaying candidates list -->
+    <div id="candidatesSection">
+        <h2>Available Candidates</h2>
+        <ul id="candidatesList"></ul>
+    </div>
+
+    <!-- Section to show voting results -->
+    <div id="votingResultsSection">
+        <h2>Voting Results</h2>
+        <ul id="votingResultsList"></ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
+    <script>
+        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Replace with your deployed contract address
+        let contractABI;
+        let provider;
+        let signer;
+        let contract;
+
+        // Load the ABI from the file
+        async function loadABI() {
+            try {
+                const response = await fetch('./ElectionABI.json');
+                contractABI = await response.json();
+                console.log("ABI Loaded Successfully.");
+            } catch (error) {
+                console.error("Failed to load ABI:", error);
+            }
+        }
+
+        // Connect the wallet to the application
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    signer = provider.getSigner();
+                    
+                    if (!contractABI) {
+                        await loadABI();
+                    }
+
+                    contract = new ethers.Contract(contractAddress, contractABI, signer);
+                    console.log("Connected to wallet successfully.");
+                    await loadCandidates(); // Load the candidates list and results
+                } catch (error) {
+                    console.error("Wallet connection error:", error);
+                    alert("Failed to connect wallet. Check console for details.");
+                }
+            } else {
+                alert("Please install MetaMask!");
+            }
+        }
+
+        // Load candidates and their vote counts
+        async function loadCandidates() {
+            try {
+                const candidateCountBN = await contract.candidatesCount();
+                const candidateCount = candidateCountBN.toNumber(); // Convert BigNumber to integer
+                const candidatesList = document.getElementById("candidatesList");
+                const votingResultsList = document.getElementById("votingResultsList");
+                
+                candidatesList.innerHTML = "";
+                votingResultsList.innerHTML = ""; // Clear previous results
+
+                // Loop through all candidates and display them
+                for (let i = 1; i <= candidateCount; i++) {
+                    const candidate = await contract.candidates(i);
+                    
+                    // Create a list item for the candidates list
+                    const li = document.createElement("li");
+                    li.innerHTML = `${candidate.name} 
+                        <button onclick="vote(${candidate.id.toNumber()})">Vote</button>`;
+                    candidatesList.appendChild(li);
+                    
+                    // Create a list item for the voting results list
+                    const resultLi = document.createElement("li");
+                    resultLi.innerHTML = `${candidate.name} - ${candidate.voteCount.toNumber()} votes`;
+                    votingResultsList.appendChild(resultLi);
+                }
+            } catch (error) {
+                console.error("Error loading candidates:", error);
+                alert("Failed to load candidates. Make sure the contract is deployed correctly.");
+            }
+        }
+
+        // Handle voting for a candidate
+        async function vote(candidateId) {
+            try {
+                const tx = await contract.vote(candidateId);
+                await tx.wait(); // Wait for the transaction to be mined
+                alert("Vote cast successfully!");
+                await loadCandidates(); // Refresh candidates list and results
+            } catch (error) {
+                console.error("Error voting:", error);
+                alert("Failed to cast vote. Check console for details.");
+            }
+        }
+
+        // Event listener for wallet connection button
+        document.getElementById("connectWallet").addEventListener("click", connectWallet);
+
+        // Load ABI before initializing
+        loadABI();
+    </script>
+</body>
+</html>

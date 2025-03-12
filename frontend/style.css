@@ -1,0 +1,132 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.container{
+    background-color:#A5158C;
+    width: 50%;
+    margin: auto;
+    padding: 10px 2px;
+    height: auto;
+    border-radius: 7px;
+    border: 3px solid yellow;
+}
+
+body {
+    font-family: Poppins;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e2f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: Poppins;
+}
+
+main {
+    padding: 30px;
+}
+
+.styled-button {
+    display: inline-block;
+    padding: 14px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(255, 117, 140, 0.4);
+}
+
+#connectWallet {
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    color: white;
+    border-radius: 20px;
+    font-size: large;
+    height: 40px;
+    border: none;
+    width: 200px;
+    padding: 2px 2px;
+    font-family: Poppins;
+    font-size: 1.2  rem;
+    margin-top: 20px;
+}
+
+#connectWallet:hover {
+    background: linear-gradient(135deg, #ff758c, #ff3d68);
+    /* transform: translateY(-3px); */
+    /* box-shadow: 0px 6px 15px rgba(255, 61, 104, 0.5); */
+}
+
+.vote-button {
+    background: linear-gradient(135deg, #56ab2f, #a8e063);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(88, 171, 47, 0.4);
+}
+
+.vote-button:hover {
+    background: linear-gradient(135deg, #3c902d, #6dbf45);
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 15px rgba(88, 171, 47, 0.5);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    background: #e8e8eb;
+    padding: 15px;
+    color: black;
+    margin: 10px 0;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all  0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(255, 234, 0, 0.4);
+}
+
+button{
+    background-color:rgb(51, 51, 219);
+    width: 80px;
+    border: none;
+}

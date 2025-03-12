@@ -5,27 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voting System</title>
     <style>
-        #candidatesSection {
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            margin: 0;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            animation: fadeIn 1s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1, h2 {
+            color: #ffffff;
             margin-bottom: 20px;
         }
 
-        #votingResultsSection {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
-        }
-
-        #votingResultsSection h2 {
-            font-size: 24px;
-        }
-
-        #votingResultsList li {
-            font-size: 18px;
-            padding: 5px 0;
-        }
-
         button {
-            margin-left: 10px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #4a0b8c, #1a59b5);
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                max-width: 350px;
+            }
         }
     </style>
 </head>
